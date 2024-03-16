@@ -10,36 +10,36 @@ const Navbar = () => {
   const links = [
     {
       id: 1,
-      linkname: "home",
+      linkname: "Home",
       link: "/home",
     },
     {
       id: 2,
-      linkname: "chat",
+      linkname: "Chat",
       link: "/chat",
     },
     {
       id: 3,
-      linkname: "learn",
+      linkname: "Learn",
       link: "/learn",
     },
     {
       id: 4,
-      linkname: "video",
+      linkname: "Video",
       link: "/video",
     },
     {
       id: 5,
-      linkname: "docs",
+      linkname: "Docs",
       link: "/docs",
     },
   ];
 
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-black fixed nav">
+    <div className="z-10 flex justify-between items-center w-full h-20 px-4 md:px-10 py-4 text-white bg-gray-500 fixed nav rounded-b-2xl">
       <div>
-        {/* <h1 className="text-5xl font-signature ml-2"><a className="link-underline hover:transition ease-in-out delay-150 hover:underline hover:decoration-solid" href="">Logo</a></h1> */}
-        <h1 className="text-3xl font-signature ml-2">
+       
+        <h1 className="text-3xl font-signature  pl-5 text-2xl font-bold italic text-black dark:text-gray-50">
           <a
             className="link-underline link-underline-black"
             href=""
@@ -51,11 +51,11 @@ const Navbar = () => {
         </h1>
       </div>
 
-      <ul className="hidden md:flex">
+      <ul className="hidden md:flex flex flex-row items-center space-x-8">
         {links.map(({ id, link, linkname }) => (
           <li
             key={id}
-            className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 hover:text-white duration-200 link-underline"
+            className="nav-links font-semibold hover:text-green-500 transition py-1 px-3 rounded-lg duration-100 "
           >
             <Link href={link}>{linkname}</Link>
           </li>

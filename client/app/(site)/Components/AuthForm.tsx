@@ -22,7 +22,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
-      router.push('/conversations')
+      router.push('/home')
     }
   }, [session?.status, router]);
 
@@ -63,7 +63,7 @@ const AuthForm = () => {
         }
 
         if (callback?.ok) {
-          router.push('/conversations')
+          router.push('/home')
         }
       })
       .catch(() => toast.error('Something went wrong!'))
@@ -81,7 +81,7 @@ const AuthForm = () => {
         }
 
         if (callback?.ok) {
-          router.push('/conversations')
+          router.push('/home')
         }
       })
       .finally(() => setIsLoading(false))
@@ -98,7 +98,7 @@ const AuthForm = () => {
         }
 
         if (callback?.ok) {
-          router.push('/conversations')
+          router.push('/home')
         }
       })
       .finally(() => setIsLoading(false));
