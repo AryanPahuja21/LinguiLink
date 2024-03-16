@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { io } from "socket.io-client";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [name,setName] = useState("");
   const [roomName,setRoomName] = useState("");
@@ -15,7 +15,7 @@ const page = () => {
   };
 
   return (
-    <div className="px-[37vw] py-[35vh]">
+    <div className="flex items-center justify-center h-screen" style={{backgroundImage: `url('https://cdn.dribbble.com/users/3892014/screenshots/16651989/media/3b96c846ca18e8fd254f43d8160e3815.png')`, backgroundSize: 'cover'}}>
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" action="#">
           <h5 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -72,4 +72,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -2,18 +2,16 @@
 import React from 'react'
 import { useRouter } from "next/navigation";
 
-
-const page = () => {
-
+const Page = () => {
   const router = useRouter();
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     router.push(`/chat/chatroom`);
   };
 
   return (
-    <div className="px-[37vw] py-[35vh]">
+    <div className="flex items-center justify-center min-h-screen" style={{backgroundImage: `url('https://cdn.dribbble.com/users/3892014/screenshots/16651989/media/3b96c846ca18e8fd254f43d8160e3815.png')`, backgroundSize: 'cover'}}>
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" action="#">
           <h5 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -64,4 +62,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
