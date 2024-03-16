@@ -9,6 +9,7 @@ const Page = () => {
   const [inbox, setInbox] = useState<any>([]); // For received messages
   const [message, setMessage] = useState(""); // For user input message
   const [targetLanguage, setTargetLanguage] = useState(""); // For target language input
+  const [roomName, setRoomName] = useState(""); // For room name input
 
   const languages = [
     { name: "Afrikaans", code: "af" },
@@ -130,11 +131,16 @@ const Page = () => {
     });
 
     setSocket(newSocket);
-``
     return () => {
       newSocket.disconnect();
     };
   }, []);
+
+  const handleJoinRoom = () => {
+    if (socket && roomName) {
+      socket.emit("join", roomName);
+    }
+  }
 
   return (
     <div className="pt-24">
@@ -164,7 +170,17 @@ const Page = () => {
               onChange={(e) => setMessage(e.target.value)}
             />
             <button className="w-40 bg-blue-700 text-white rounded-xl" onClick={handleSendMessage}>Send message</button>
+            
           </div>
+            <input
+              type="text"
+              name="room"
+              className="flex-1 bg-white text-black border px-2 py-1 rounded-lg"
+              value={roomName}
+              placeholder="Enter Room"
+              onChange={(e) => setRoomName(e.target.value)}
+            />
+            <button className="w-40 bg-blue-700 text-white rounded-xl" onClick={handleJoinRoom}>Join Room</button>
         </div>
       </div>
     </div>

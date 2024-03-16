@@ -5,7 +5,9 @@ const io = require("socket.io")(3000, {
 const axios = require('axios')
 
 io.on("connection", (socket) => {
-  socket.on("message", async ({message, targetLanguage}) => {
+  let roomName = ""; // Initialize roomName variable
+  
+  socket.on("message", async ({ message, targetLanguage }) => {
     const encodedParams = new URLSearchParams();
     encodedParams.set('source_language', 'auto');
     encodedParams.set('target_language', targetLanguage);
@@ -22,11 +24,19 @@ io.on("connection", (socket) => {
     };
     const response = await axios.request(options);
     console.log(response.data);
-    transMessage = response.data.data.translatedText
-    io.emit("message", "Original: " + message + "Translated: " + transMessage )
-  })
+    const transMessage = response.data.data.translatedText; // Declare transMessage variable
+    if (roomName.length > 0) {
+      io.to(roomName).emit("message", "Original: " + message + " Translated: " + transMessage); // Emit message to room
+    }
+  });
+
+  socket.on("join", (room) => {
+    socket.join(room); // Join room
+    roomName = room; // Set roomName variable
+    console.log("User Joined Room: " + roomName);
+  });
 
   socket.on("disconnect", () => {
     console.log("User Disconnected.")
-  })
+  });
 });
