@@ -22,9 +22,12 @@ const TranslatePage = () => {
           chunks.push(e.data);
         };
 
-        recorder.onstop = () => {
+        recorder.onstop = async () => {
           const blob = new Blob(chunks, { type: 'audio/wav' });
           setRecordedAudio(blob);
+          
+          // Send audio to server
+          await sendAudioToServer(blob);
         };
 
         setMediaRecorder(recorder);
@@ -41,20 +44,18 @@ const TranslatePage = () => {
     }
   };
 
-  const sendAudioToServer = async () => {
+  const sendAudioToServer = async (audio: Blob) => {
     try {
-      if (recordedAudio) {
-        const formData = new FormData();
-        formData.append('audio', recordedAudio);
+      const formData = new FormData();
+      formData.append('audio', audio);
 
-        const response = await fetch('/api/translate', {
-          method: 'POST',
-          body: formData,
-        });
+      const response = await fetch('/api/translate', {
+        method: 'POST',
+        body: formData,
+      });
 
-        const data = await response.json();
-        setTranslatedText(data.translatedText);
-      }
+      const data = await response.json();
+      setTranslatedText(data.translatedText);
     } catch (error) {
       console.error('Error sending audio to server:', error);
     }
@@ -76,9 +77,6 @@ const TranslatePage = () => {
         <Image src={Mic} alt="Microphone" width={200} height={200} />
         <button onClick={handleRecordAudio} className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg mb-4">
           {isRecording ? 'Stop Recording' : 'Record Audio'}
-        </button>
-        <button onClick={sendAudioToServer} className="bg-green-500 text-white px-4 py-2 rounded-full shadow-lg mb-4">
-          Send Audio to Server
         </button>
         </div>
         <div>
